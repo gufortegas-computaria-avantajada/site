@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: white;
+}
+
+/* HEADER */
+.header {
+    background: url(Sem\ título.png);
+    background-position: center;
+    padding: 30px;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.capa {
+    width: 230px;
+}
+
+/* LAYOUT */
+.layout {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    flex: 1;
+    max-width: 800px;
+    padding-bottom: 120px;
+}
+
+.container1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.logo {
+    width: 150px;
+}
+
+/* CHAT */
+#chat {
+    min-height: 300px;
+    padding: 10px;
+}
+
+/* 💬 INPUT FIXO */
+.input-area {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 800px;
+}
+
+/* CAIXA */
+.input-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+
+    background: white;
+    padding: 10px;
+    border-radius: 20px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* TEXTAREA */
+#inputTexto {
+    flex: 1;
+
+    resize: none;
+    overflow: hidden;
+
+    min-height: 40px;
+    max-height: 150px;
+
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+
+    font-family: Arial;
+}
+
+/* BOTÃO */
+#enviar {
+    height: 40px;
+    min-width: 50px;
+
+    border-radius: 10px;
+    border: none;
+
+    background: #ccc;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#enviar.ativo {
+    background: #00ff66;
+}
+
+/* LADO DIREITO */
+.right {
+    width: 200px;
+    padding: 20px;
+}
+
+.sideimg {
+    width: 150px;
+}
+
+.nota {
+    font-style: italic;
+    font-size: 20px;
+}
+
+/* MENSAGENS */
+.verdadeiro {
+    background: #d9ffd9;
+    border-left: 5px solid green;
+}
+
+.falso {
+    background: #ffd9d9;
+    border-left: 5px solid red;
+}
+
+.duvidoso {
+    background: #fff3d9;
+    border-left: 5px solid orange;
+}
+
+/* 🔙 BOTÃO VOLTAR NO HEADER */
+#voltarForum {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    padding: 10px 18px;
+    border-radius: 25px;
+    border: none;
+
+    background: linear-gradient(180deg, #ffffff, #d9faff);
+    color: #0077ff;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 15px rgba(0,150,255,0.4),
+        inset 0 2px 8px rgba(255,255,255,0.9);
+
+    transition: 0.2s;
+}
+
+#voltarForum:hover {
+    transform: scale(1.08);
+}
