@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selecionar Fórum</title>
+
+<link rel="stylesheet" href="style-fórum.css">
+</head>
+
+<body>
+
+<h1 class="titulo">Escolha um Fórum</h1>
+
+<div class="forum-list">
+
+    <div class="forum-card" onclick="entrarForum('geral')">
+        <h2>Geral</h2>
+        <p>Discussões livres</p>
+    </div>
+
+    <div class="forum-card" onclick="entrarForum('tecnologia')">
+        <h2>Tecnologia</h2>
+        <p>Programação, hardware, IA</p>
+    </div>
+
+    <div class="forum-card" onclick="entrarForum('teorias')">
+        <h2>Teorias</h2>
+        <p>Debates e conspirações</p>
+    </div>
+
+</div>
+
+<script src="forum.js"></script>
+
+</body>
+</html>
