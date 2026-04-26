@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const foruns = {
         geral: { nome: "Geral", imagem: "images.jpg" },
-        tecnologia: { nome: "Tecnologia", imagem: "images4.jpg" },
-        teorias: { nome: "Teorias", imagem: "images2.png" },
+        tecnologia: { nome: "Tecnologia", imagem: "images1.png" },
+        teorias: { nome: "Teorias", imagem: "images2.jpg" },
         secreto: { nome: "???", imagem: "images3.jpg" },
         ultra: { nome: "ULTRA", imagem: "images3.jpg" }
     };
@@ -36,18 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
         tela.style.left = "50%";
         tela.style.transform = "translate(-50%, -50%)";
         tela.style.color = "white";
-        tela.style.fontSize = "30px";
+        tela.style.fontSize = "28px";
         tela.style.zIndex = "9998";
         document.body.appendChild(tela);
 
         const audio = new Audio("track1secret.mp3");
-        audio.volume = 0.5;
+        document.addEventListener("click", () => audio.play(), { once: true });
 
-        document.addEventListener("click", () => {
-            audio.play().catch(() => {});
-        }, { once: true });
-
-        // 🎥 TRANSIÇÃO COM VÍDEO
         setTimeout(() => {
             tela.remove();
 
@@ -55,55 +50,62 @@ document.addEventListener("DOMContentLoaded", () => {
             overlay.style.position = "fixed";
             overlay.style.top = "0";
             overlay.style.left = "0";
-            overlay.style.width = "100%";
-            overlay.style.height = "100%";
+            overlay.style.width = "100vw";
+            overlay.style.height = "100vh";
             overlay.style.background = "black";
             overlay.style.zIndex = "9999";
-            overlay.style.opacity = "0";
-            overlay.style.transition = "opacity 1s";
+            overlay.style.overflow = "hidden";
 
             const video = document.createElement("video");
-
             video.src = "rickroll.mp4";
-            video.muted = true;
-            video.playsInline = true;
 
-            video.style.width = "100%";
-            video.style.height = "100%";
-            video.style.objectFit = "cover";
+            video.autoplay = true;
+            video.playsInline = true;
+            video.controls = false;
+            video.preload = "auto";
+
+            // 🔥 AJUSTE FINAL SEM SCROLL E SEM CORTAR
+            video.style.position = "absolute";
+            video.style.top = "50%";
+            video.style.left = "50%";
+            video.style.transform = "translate(-50%, -50%)";
+
+            video.style.width = "100vw";
+            video.style.height = "100vh";
+            video.style.objectFit = "contain";
 
             overlay.appendChild(video);
             document.body.appendChild(overlay);
 
-            // fade in
-            setTimeout(() => {
-                overlay.style.opacity = "1";
-            }, 50);
-
-            video.play().catch(() => {
-                document.addEventListener("click", () => video.play(), { once: true });
+            video.addEventListener("loadedmetadata", () => {
+                video.play().catch(() => {
+                    document.addEventListener("click", () => video.play(), { once: true });
+                });
             });
 
-            // quando acabar → modo ultra
-            video.onended = () => {
-                irParaUltra(overlay);
-            };
+            let finalizado = false;
 
-            // fallback
-            setTimeout(() => {
-                irParaUltra(overlay);
-            }, 5000);
+            video.addEventListener("ended", () => {
+                if (finalizado) return;
+                finalizado = true;
+
+                localStorage.setItem("forumSelecionado", "ultra");
+                location.reload();
+            });
+
+            video.addEventListener("loadedmetadata", () => {
+                const duracao = video.duration || 6;
+
+                setTimeout(() => {
+                    if (finalizado) return;
+                    finalizado = true;
+
+                    localStorage.setItem("forumSelecionado", "ultra");
+                    location.reload();
+                }, (duracao + 1) * 1000);
+            });
 
         }, 3000);
-    }
-
-    function irParaUltra(overlay) {
-        overlay.style.opacity = "0";
-
-        setTimeout(() => {
-            localStorage.setItem("forumSelecionado", "ultra");
-            location.reload();
-        }, 1000);
     }
 
     // 🔥 MODO ULTRA
@@ -137,12 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (msg === CODIGO_SECRETO) {
             localStorage.setItem("forumSelecionado", "secreto");
-
-            const aviso = document.createElement("div");
-            aviso.innerText = "🔓 Acesso liberado...";
-            chat.appendChild(aviso);
-
-            setTimeout(() => location.reload(), 1000);
+            location.reload();
             return;
         }
 
