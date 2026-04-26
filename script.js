@@ -25,6 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (logo) logo.src = foruns[forum].imagem;
     }
 
+    // 🎧 ÁUDIOS (SEQUÊNCIA CORRETA)
+    const track1 = new Audio("track1secret.mp3");
+    track1.preload = "auto";
+    track1.volume = 1;
+
+    const ambience = new Audio("aquatic ambience.mp3");
+    ambience.preload = "auto";
+    ambience.loop = true;
+    ambience.volume = 1;
+
     // 🌑 MODO SECRETO
     if (forum === "secreto") {
         document.body.style.background = "black";
@@ -39,9 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
         tela.style.fontSize = "28px";
         tela.style.zIndex = "9998";
         document.body.appendChild(tela);
-
-        const audio = new Audio("track1secret.mp3");
-        document.addEventListener("click", () => audio.play(), { once: true });
 
         setTimeout(() => {
             tela.remove();
@@ -64,12 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
             video.controls = false;
             video.preload = "auto";
 
-            // 🔥 AJUSTE FINAL SEM SCROLL E SEM CORTAR
             video.style.position = "absolute";
             video.style.top = "50%";
             video.style.left = "50%";
             video.style.transform = "translate(-50%, -50%)";
-
             video.style.width = "100vw";
             video.style.height = "100vh";
             video.style.objectFit = "contain";
@@ -85,25 +90,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let finalizado = false;
 
-            video.addEventListener("ended", () => {
+            function finalizar() {
                 if (finalizado) return;
                 finalizado = true;
 
-                localStorage.setItem("forumSelecionado", "ultra");
-                location.reload();
-            });
+                // 🔊 1. toca track1 primeiro
+                track1.play().catch(() => {
+                    document.addEventListener("click", () => track1.play(), { once: true });
+                });
 
-            video.addEventListener("loadedmetadata", () => {
-                const duracao = video.duration || 6;
+                // 🌊 2. quando track1 acabar → entra ambience
+                track1.addEventListener("ended", () => {
+                    ambience.play().catch(() => {
+                        document.addEventListener("click", () => ambience.play(), { once: true });
+                    });
+                });
 
+                // 🧹 remove vídeo
                 setTimeout(() => {
-                    if (finalizado) return;
-                    finalizado = true;
+                    overlay.remove();
+                }, 200);
 
+                // 🔥 vai pro ULTRA
+                setTimeout(() => {
                     localStorage.setItem("forumSelecionado", "ultra");
                     location.reload();
-                }, (duracao + 1) * 1000);
-            });
+                }, 3000);
+            }
+
+            video.addEventListener("ended", finalizar);
 
         }, 3000);
     }
@@ -115,10 +130,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (titulo) titulo.innerText = "Vienna // ROOT";
 
+        // 🌊 garante que ambience continua no ULTRA
+        ambience.play().catch(() => {
+            document.addEventListener("click", () => ambience.play(), { once: true });
+        });
+
+        let toggle = false;
+
         setInterval(() => {
-            document.body.style.filter =
-                Math.random() > 0.5 ? "brightness(1.2)" : "brightness(0.8)";
-        }, 200);
+            toggle = !toggle;
+            document.body.style.filter = toggle
+                ? "brightness(1.2)"
+                : "brightness(0.95)";
+        }, 800);
     }
 
     function atualizarBotao() {
