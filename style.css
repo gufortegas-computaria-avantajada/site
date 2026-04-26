@@ -62,7 +62,7 @@ body {
    ----------------------------------------------------------- */
 .input-area {
     position: fixed;
-    bottom: 300px; /* 👈 agora sim sobe até o "Ver detalhes" */
+    bottom: 280px; /* 👈 agora sim sobe até o "Ver detalhes" */
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
