@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const foruns = {
         geral: { nome: "Geral", imagem: "images.jpg" },
-        tecnologia: { nome: "Tecnologia", imagem: "images4.jpg" },
-        teorias: { nome: "Teorias", imagem: "images2.png" },
+        tecnologia: { nome: "Tecnologia", imagem: "images1.png" },
+        teorias: { nome: "Teorias", imagem: "images2.jpg" },
         secreto: { nome: "???", imagem: "images3.jpg" },
         ultra: { nome: "ULTRA", imagem: "images3.jpg" }
     };
@@ -27,16 +27,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 🌑 MODO SECRETO
     if (forum === "secreto") {
-        document.body.classList.add("secreto");
+        document.body.style.background = "black";
 
         const tela = document.createElement("div");
-        tela.className = "tela-secreta glitch";
         tela.innerText = "ACESSO CONCEDIDO";
+        tela.style.position = "fixed";
+        tela.style.top = "50%";
+        tela.style.left = "50%";
+        tela.style.transform = "translate(-50%, -50%)";
+        tela.style.color = "white";
+        tela.style.fontSize = "30px";
+        tela.style.zIndex = "9998";
         document.body.appendChild(tela);
 
-        // 🎧 áudio continua normal
+        // 🎧 áudio
         const audio = new Audio("track1secret.mp3");
-        audio.volume = 0.4;
+        audio.volume = 0.5;
 
         function iniciarAudio() {
             audio.play().catch(() => {});
@@ -45,10 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(iniciarAudio, 1000);
         document.addEventListener("click", iniciarAudio, { once: true });
 
-        // ⏳ DEPOIS DE 5s → VÍDEO
+        // 🎥 VÍDEO DEPOIS DE 5s
         setTimeout(() => {
+            tela.remove();
 
-            // cria overlay
             const overlay = document.createElement("div");
             overlay.style.position = "fixed";
             overlay.style.top = "0";
@@ -58,26 +64,37 @@ document.addEventListener("DOMContentLoaded", () => {
             overlay.style.background = "black";
             overlay.style.zIndex = "9999";
 
-            // cria vídeo
             const video = document.createElement("video");
-            video.src = "rickroll.mp4";
+
+            video.src = "./rickroll.mp4"; // 🔥 IMPORTANTE
             video.autoplay = true;
-            video.muted = true; // 🔥 ESSENCIAL PRA FUNCIONAR
+            video.muted = true; // 🔥 necessário pra autoplay
             video.playsInline = true;
+            video.controls = false;
 
             video.style.width = "100%";
             video.style.height = "100%";
             video.style.objectFit = "cover";
 
+            // DEBUG
+            video.onloadeddata = () => {
+                console.log("VÍDEO CARREGADO ✅");
+            };
+
+            video.onerror = () => {
+                console.log("ERRO AO CARREGAR VÍDEO ❌");
+            };
+
             overlay.appendChild(video);
             document.body.appendChild(overlay);
 
-            // garante que toca
-            video.play().catch(() => {
-                console.log("autoplay bloqueado");
+            video.play().then(() => {
+                console.log("VÍDEO TOCANDO ▶️");
+            }).catch((e) => {
+                console.log("AUTOPLAY BLOQUEADO ❌", e);
             });
 
-            // ⏳ depois libera ULTRA
+            // ⏳ depois vai pro ULTRA
             setTimeout(() => {
                 localStorage.setItem("forumSelecionado", "ultra");
                 window.location.reload();
