@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         geral: { nome: "Geral", imagem: "images.jpg" },
         tecnologia: { nome: "Tecnologia", imagem: "images4.jpg" },
         teorias: { nome: "Teorias", imagem: "images2.jpg" },
-        secreto: { nome: "???", imagem: "images3.jpg" },
+        secreto: { nome: "???", imagem: "images3.png" },
         ultra: { nome: "ULTRA", imagem: "images3.jpg" }
     };
 
