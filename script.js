@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const titulo = document.querySelector(".container1 h2");
     const logo = document.querySelector(".logo");
+    const inputArea = document.querySelector(".input-area");
 
     const foruns = {
         geral: { nome: "Geral", imagem: "images.jpg" },
@@ -25,18 +26,81 @@ document.addEventListener("DOMContentLoaded", () => {
         if (logo) logo.src = foruns[forum].imagem;
     }
 
-    // 🎧 ÁUDIOS (SEQUÊNCIA CORRETA)
-    const track1 = new Audio("track1secret.mp3");
-    track1.preload = "auto";
-    track1.volume = 1;
-
     const ambience = new Audio("aquatic ambience.mp3");
-    ambience.preload = "auto";
     ambience.loop = true;
-    ambience.volume = 1;
 
-    // 🌑 MODO SECRETO
+    function enterCutscene() {
+        document.body.style.overflow = "hidden";
+        if (inputArea) inputArea.style.display = "none";
+        if (chat) chat.style.paddingBottom = "0px";
+    }
+
+    function enterUI() {
+        document.body.style.overflow = "auto";
+        if (inputArea) inputArea.style.display = "block";
+        if (chat) chat.style.paddingBottom = "200px";
+    }
+
+    /* -----------------------------------------------------------
+       🔘 BOTÃO + CAIXA (GLOBAL)
+    ----------------------------------------------------------- */
+    let btnCreditos = document.createElement("button");
+    btnCreditos.innerText = "Créditos";
+    btnCreditos.style.position = "fixed";
+    btnCreditos.style.top = "20px";
+    btnCreditos.style.left = "20px";
+    btnCreditos.style.padding = "10px 15px";
+    btnCreditos.style.borderRadius = "10px";
+    btnCreditos.style.border = "none";
+    btnCreditos.style.background = "#111";
+    btnCreditos.style.color = "#00ffcc";
+    btnCreditos.style.cursor = "pointer";
+    btnCreditos.style.zIndex = "99999";
+
+    let caixa = document.createElement("div");
+    caixa.style.position = "fixed";
+    caixa.style.top = "50%";
+    caixa.style.left = "50%";
+    caixa.style.transform = "translate(-50%, -50%)";
+    caixa.style.background = "black";
+    caixa.style.color = "#00ffcc";
+    caixa.style.padding = "25px";
+    caixa.style.borderRadius = "15px";
+    caixa.style.boxShadow = "0 0 20px #00ffcc";
+    caixa.style.display = "none";
+    caixa.style.zIndex = "100000";
+    caixa.style.textAlign = "center";
+
+    caixa.innerHTML = `
+        <h2>Créditos</h2>
+        <p>Projeto: Whistler</p>
+        <p>Interface: Você 😎</p>
+        <p>Sistema: Você</p>
+        <p>Modo secreto: 🔥</p>
+        <br>
+        <button id="fecharCreditos">Fechar</button>
+    `;
+
+    if (forum === "secreto" || forum === "ultra") {
+        document.body.appendChild(btnCreditos);
+        document.body.appendChild(caixa);
+    }
+
+    btnCreditos.onclick = () => {
+        caixa.style.display = "block";
+    };
+
+    document.addEventListener("click", (e) => {
+        if (e.target.id === "fecharCreditos") {
+            caixa.style.display = "none";
+        }
+    });
+
+    /* -----------------------------------------------------------
+       🔥 MODO SECRETO
+    ----------------------------------------------------------- */
     if (forum === "secreto") {
+        enterCutscene();
         document.body.style.background = "black";
 
         const tela = document.createElement("div");
@@ -61,20 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
             overlay.style.height = "100vh";
             overlay.style.background = "black";
             overlay.style.zIndex = "9999";
-            overlay.style.overflow = "hidden";
 
             const video = document.createElement("video");
             video.src = "rickroll.mp4";
-
             video.autoplay = true;
-            video.playsInline = true;
-            video.controls = false;
-            video.preload = "auto";
-
-            video.style.position = "absolute";
-            video.style.top = "50%";
-            video.style.left = "50%";
-            video.style.transform = "translate(-50%, -50%)";
             video.style.width = "100vw";
             video.style.height = "100vh";
             video.style.objectFit = "contain";
@@ -82,82 +136,45 @@ document.addEventListener("DOMContentLoaded", () => {
             overlay.appendChild(video);
             document.body.appendChild(overlay);
 
-            video.addEventListener("loadedmetadata", () => {
-                video.play().catch(() => {
-                    document.addEventListener("click", () => video.play(), { once: true });
-                });
-            });
-
-            let finalizado = false;
-
-            function finalizar() {
-                if (finalizado) return;
-                finalizado = true;
-
-                // 🔊 1. toca track1 primeiro
-                track1.play().catch(() => {
-                    document.addEventListener("click", () => track1.play(), { once: true });
-                });
-
-                // 🌊 2. quando track1 acabar → entra ambience
-                track1.addEventListener("ended", () => {
-                    ambience.play().catch(() => {
-                        document.addEventListener("click", () => ambience.play(), { once: true });
-                    });
-                });
-
-                // 🧹 remove vídeo
-                setTimeout(() => {
-                    overlay.remove();
-                }, 200);
-
-                // 🔥 vai pro ULTRA
-                setTimeout(() => {
-                    localStorage.setItem("forumSelecionado", "ultra");
-                    location.reload();
-                }, 3000);
-            }
-
-            video.addEventListener("ended", finalizar);
+            video.onended = () => {
+                overlay.remove();
+                localStorage.setItem("forumSelecionado", "ultra");
+                location.reload();
+            };
 
         }, 3000);
     }
 
-    // 🔥 MODO ULTRA
+    /* -----------------------------------------------------------
+       🔥 MODO ULTRA
+    ----------------------------------------------------------- */
     if (forum === "ultra") {
+        enterUI();
         document.body.style.background = "black";
         document.body.style.color = "#00ffcc";
-
         if (titulo) titulo.innerText = "Vienna // ROOT";
 
-        // 🌊 garante que ambience continua no ULTRA
         ambience.play().catch(() => {
             document.addEventListener("click", () => ambience.play(), { once: true });
         });
-
-        let toggle = false;
-
-        setInterval(() => {
-            toggle = !toggle;
-            document.body.style.filter = toggle
-                ? "brightness(1.2)"
-                : "brightness(0.95)";
-        }, 800);
     }
 
     function atualizarBotao() {
-        const temTexto = input.value.trim() !== "";
-        botao.disabled = !temTexto;
-        botao.classList.toggle("ativo", temTexto);
+        const temTexto = input && input.value.trim() !== "";
+        if (botao) {
+            botao.disabled = !temTexto;
+            botao.classList.toggle("ativo", temTexto);
+        }
     }
 
-    input.addEventListener("input", () => {
-        atualizarBotao();
-        input.style.height = "auto";
-        input.style.height = input.scrollHeight + "px";
-    });
+    if (input) {
+        input.addEventListener("input", atualizarBotao);
+    }
 
-    async function enviarMensagem() {
+    /* -----------------------------------------------------------
+       🚀 ENVIO DE MENSAGEM (CORRIGIDO)
+    ----------------------------------------------------------- */
+    function enviarMensagem() {
         const msg = input.value.trim();
         if (!msg) return;
 
@@ -167,49 +184,35 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        adicionarMensagem("Você: " + msg);
+        const div = document.createElement("div");
+        div.innerText = "Você: " + msg;
+        chat.appendChild(div);
 
         input.value = "";
         atualizarBotao();
-
-        const loading = document.createElement("div");
-        loading.innerText = "IA: ...";
-        chat.appendChild(loading);
-
-        try {
-            const res = await fetch(API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ msg })
-            });
-
-            const resposta = await res.text();
-            loading.innerText = "IA: " + resposta;
-
-        } catch {
-            loading.innerText = "IA: erro 😢";
-        }
     }
 
-    botao.addEventListener("click", enviarMensagem);
+    if (botao) {
+        botao.addEventListener("click", enviarMensagem);
+    }
 
-    input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" && !botao.disabled) {
-            e.preventDefault();
-            enviarMensagem();
-        }
-    });
+    if (input) {
+input.addEventListener("keydown", (e) => {
+
+    // ENTER normal = envia
+    if (e.key === "Enter" && !e.shiftKey && !botao.disabled) {
+        e.preventDefault();
+        enviarMensagem();
+    }
+
+    // SHIFT + ENTER = quebra linha (não faz nada, deixa padrão)
+});
+    }
 
     if (voltar) {
         voltar.addEventListener("click", () => {
             window.location.href = "forum.html";
         });
-    }
-
-    function adicionarMensagem(texto) {
-        const div = document.createElement("div");
-        div.innerText = texto;
-        chat.appendChild(div);
     }
 
     atualizarBotao();
