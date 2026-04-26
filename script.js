@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const foruns = {
         geral: { nome: "Geral", imagem: "images.jpg" },
-        tecnologia: { nome: "Tecnologia", imagem: "images4.png" },
+        tecnologia: { nome: "Tecnologia", imagem: "images4.jpg" },
         teorias: { nome: "Teorias", imagem: "images2.png" },
         secreto: { nome: "???", imagem: "images3.jpg" },
         ultra: { nome: "ULTRA", imagem: "images3.jpg" }
