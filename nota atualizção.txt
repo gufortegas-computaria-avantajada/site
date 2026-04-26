@@ -1,0 +1,33 @@
+0,7: a versão atual está enfrentando alguns problemas com IA(como sempre), uma possível solução seria abrir mais
+caminhos para evitar erros como a API se recusando a ligar, ou o JS não conseguir ligar através do site.
+Fora esses problemas ainda tem mais alguns ajustes no modelo do site e falta tornar as avaliações utilizáveis,
+além de fazer uma rede para ela(para que  eu ou quem precisar mexer no site conseguir ter as ordens mais facilmente).
+
+0,8:A versão atual foi uma das que mais me deu trabalho na resolução de bugs do C#, serio, passei de 2-3 horas batendo
+cabeça pra arrumar a entrada e as respostas da IA.
+A parte visual foi bem tranquila, me inspirei em versões BETA do Windows para o estilo da barra HEADER.
+
+0,9:Criar a logo foi bem chatinho no começo pq eu só esqueci como que se faz algo no photosp, mas depois me deu a brisa
+de usar uma icon de um cara correndo e pintar de verde.
+
+1,0:Foi bem fácil na real, tipo todos os as atualizações acima foram mais difícil do que tudo e essa foi GG. Espero que continue assim
+
+1,1:!EM BREVE!(interface)
+
+1,2:!EM BREVE!(interface)
+
+1,3:!EM BREVE!(interface)
+
+1,4:!EM BREVE!(IA)
+
+1,5:!EM BREVE!()
+
+1,6:!EM BREVE!()
+
+1,7:!EM BREVE!()
+
+1,8:!EM BREVE!()
+
+1,9:!EM BREVE!()
+
+2,0:!EM BREVE!()
