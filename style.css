@@ -1,10 +1,15 @@
+/* -----------------------------------------------------------
+   CONFIGURAÇÕES GERAIS E RESET
+   ----------------------------------------------------------- */
 body {
     margin: 0;
     font-family: Arial;
     background: white;
 }
 
-/* HEADER */
+/* -----------------------------------------------------------
+   CABEÇALHO (HEADER) E LOGOTIPO PRINCIPAL
+   ----------------------------------------------------------- */
 .header {
     background: url(Sem\ título.png);
     background-position: center;
@@ -18,7 +23,9 @@ body {
     width: 230px;
 }
 
-/* LAYOUT */
+/* -----------------------------------------------------------
+   ESTRUTURA DE LAYOUT (COLUNAS)
+   ----------------------------------------------------------- */
 .layout {
     display: flex;
     justify-content: space-between;
@@ -27,7 +34,8 @@ body {
 .left {
     flex: 1;
     max-width: 800px;
-    padding-bottom: 120px;
+    /* Aumentado para compensar a subida do input */
+    padding-bottom: 160px; 
 }
 
 .container1 {
@@ -41,63 +49,59 @@ body {
     width: 150px;
 }
 
-/* CHAT */
+/* -----------------------------------------------------------
+   ÁREA DE MENSAGENS DO CHAT
+   ----------------------------------------------------------- */
 #chat {
     min-height: 300px;
     padding: 10px;
 }
 
-/* 💬 INPUT FIXO */
+/* -----------------------------------------------------------
+   ZONA DE INPUT (ENTRADA DE TEXTO FIXA)
+   ----------------------------------------------------------- */
 .input-area {
     position: fixed;
-    bottom: 20px;
+    bottom: 300px; /* 👈 agora sim sobe até o "Ver detalhes" */
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
     max-width: 800px;
+    z-index: 1000;
+
+    padding: 10px 0;
+    background: transparent;
 }
 
-/* CAIXA */
 .input-wrapper {
     display: flex;
     align-items: flex-end;
     gap: 10px;
-
     background: white;
     padding: 10px;
     border-radius: 20px;
-
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
 }
 
-/* TEXTAREA */
 #inputTexto {
     flex: 1;
-
     resize: none;
     overflow: hidden;
-
     min-height: 40px;
     max-height: 150px;
-
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ccc;
-
     font-family: Arial;
 }
 
-/* BOTÃO */
 #enviar {
     height: 40px;
     min-width: 50px;
-
     border-radius: 10px;
     border: none;
-
     background: #ccc;
     cursor: pointer;
-
     transition: 0.2s;
 }
 
@@ -105,7 +109,9 @@ body {
     background: #00ff66;
 }
 
-/* LADO DIREITO */
+/* -----------------------------------------------------------
+   BARRA LATERAL DIREITA (SIDEBAR) E NOTAS
+   ----------------------------------------------------------- */
 .right {
     width: 200px;
     padding: 20px;
@@ -120,7 +126,9 @@ body {
     font-size: 20px;
 }
 
-/* MENSAGENS */
+/* -----------------------------------------------------------
+   ESTILIZAÇÃO DE MENSAGENS (STATUS/CATEGORIAS)
+   ----------------------------------------------------------- */
 .verdadeiro {
     background: #d9ffd9;
     border-left: 5px solid green;
@@ -136,25 +144,22 @@ body {
     border-left: 5px solid orange;
 }
 
-/* 🔙 BOTÃO VOLTAR NO HEADER */
+/* -----------------------------------------------------------
+   BOTÕES DE NAVEGAÇÃO E INTERFACE
+   ----------------------------------------------------------- */
 #voltarForum {
     position: absolute;
     top: 20px;
     right: 20px;
-
     padding: 10px 18px;
     border-radius: 25px;
     border: none;
-
     background: linear-gradient(180deg, #ffffff, #d9faff);
     color: #0077ff;
-
     cursor: pointer;
-
     box-shadow:
         0 5px 15px rgba(0,150,255,0.4),
         inset 0 2px 8px rgba(255,255,255,0.9);
-
     transition: 0.2s;
 }
 
