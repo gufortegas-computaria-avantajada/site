@@ -40,18 +40,14 @@ document.addEventListener("DOMContentLoaded", () => {
         tela.style.zIndex = "9998";
         document.body.appendChild(tela);
 
-        // 🎧 áudio
         const audio = new Audio("track1secret.mp3");
         audio.volume = 0.5;
 
-        function iniciarAudio() {
+        document.addEventListener("click", () => {
             audio.play().catch(() => {});
-        }
+        }, { once: true });
 
-        setTimeout(iniciarAudio, 1000);
-        document.addEventListener("click", iniciarAudio, { once: true });
-
-        // 🎥 VÍDEO DEPOIS DE 5s
+        // 🎥 TRANSIÇÃO COM VÍDEO
         setTimeout(() => {
             tela.remove();
 
@@ -63,44 +59,51 @@ document.addEventListener("DOMContentLoaded", () => {
             overlay.style.height = "100%";
             overlay.style.background = "black";
             overlay.style.zIndex = "9999";
+            overlay.style.opacity = "0";
+            overlay.style.transition = "opacity 1s";
 
             const video = document.createElement("video");
 
-            video.src = "./rickroll.mp4"; // 🔥 IMPORTANTE
-            video.autoplay = true;
-            video.muted = true; // 🔥 necessário pra autoplay
+            video.src = "rickroll.mp4";
+            video.muted = true;
             video.playsInline = true;
-            video.controls = false;
 
             video.style.width = "100%";
             video.style.height = "100%";
             video.style.objectFit = "cover";
 
-            // DEBUG
-            video.onloadeddata = () => {
-                console.log("VÍDEO CARREGADO ✅");
-            };
-
-            video.onerror = () => {
-                console.log("ERRO AO CARREGAR VÍDEO ❌");
-            };
-
             overlay.appendChild(video);
             document.body.appendChild(overlay);
 
-            video.play().then(() => {
-                console.log("VÍDEO TOCANDO ▶️");
-            }).catch((e) => {
-                console.log("AUTOPLAY BLOQUEADO ❌", e);
+            // fade in
+            setTimeout(() => {
+                overlay.style.opacity = "1";
+            }, 50);
+
+            video.play().catch(() => {
+                document.addEventListener("click", () => video.play(), { once: true });
             });
 
-            // ⏳ depois vai pro ULTRA
-            setTimeout(() => {
-                localStorage.setItem("forumSelecionado", "ultra");
-                window.location.reload();
-            }, 6000);
+            // quando acabar → modo ultra
+            video.onended = () => {
+                irParaUltra(overlay);
+            };
 
-        }, 5000);
+            // fallback
+            setTimeout(() => {
+                irParaUltra(overlay);
+            }, 5000);
+
+        }, 3000);
+    }
+
+    function irParaUltra(overlay) {
+        overlay.style.opacity = "0";
+
+        setTimeout(() => {
+            localStorage.setItem("forumSelecionado", "ultra");
+            location.reload();
+        }, 1000);
     }
 
     // 🔥 MODO ULTRA
