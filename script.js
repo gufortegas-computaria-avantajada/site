@@ -74,9 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
     caixa.innerHTML = `
         <h2>Créditos</h2>
         <p>Projeto: Whistler</p>
-        <p>Interface: Você 😎</p>
-        <p>Sistema: Você</p>
-        <p>Modo secreto: 🔥</p>
+        <p>Interface: Gustavo F</p>
+        <p>Sistema:Gustavo F</p>
+        <p>Modo secreto:Gustavo F</p>
+        <p>Estilo:😎<p>
         <br>
         <button id="fecharCreditos">Fechar</button>
     `;
