@@ -1,10 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const input = document.getElementById("inputTexto");
     const botao = document.getElementById("enviar");
     const chat = document.getElementById("chat");
     const voltar = document.getElementById("voltarForum");
 
-    const API_URL = "http://localhost:5044/ia";
+    // ⚠️ TESTE LOCAL
+    const API_URL = "http://127.0.0.1:5044/ia";
+
     const CODIGO_SECRETO = "777*777*777";
 
     const forum = localStorage.getItem("forumSelecionado") || "geral";
@@ -22,30 +25,51 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (foruns[forum]) {
+
         titulo.innerText = "Vienna - " + foruns[forum].nome;
-        if (logo) logo.src = foruns[forum].imagem;
+
+        if (logo) {
+            logo.src = foruns[forum].imagem;
+        }
     }
 
     const ambience = new Audio("aquatic ambience.mp3");
     ambience.loop = true;
 
     function enterCutscene() {
+
         document.body.style.overflow = "hidden";
-        if (inputArea) inputArea.style.display = "none";
-        if (chat) chat.style.paddingBottom = "0px";
+
+        if (inputArea) {
+            inputArea.style.display = "none";
+        }
+
+        if (chat) {
+            chat.style.paddingBottom = "0px";
+        }
     }
 
     function enterUI() {
+
         document.body.style.overflow = "auto";
-        if (inputArea) inputArea.style.display = "block";
-        if (chat) chat.style.paddingBottom = "200px";
+
+        if (inputArea) {
+            inputArea.style.display = "block";
+        }
+
+        if (chat) {
+            chat.style.paddingBottom = "200px";
+        }
     }
 
     /* -----------------------------------------------------------
-       🔘 BOTÃO + CAIXA (GLOBAL)
+       🔘 BOTÃO + CAIXA DE CRÉDITOS
     ----------------------------------------------------------- */
+
     let btnCreditos = document.createElement("button");
+
     btnCreditos.innerText = "Créditos";
+
     btnCreditos.style.position = "fixed";
     btnCreditos.style.top = "20px";
     btnCreditos.style.left = "20px";
@@ -58,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnCreditos.style.zIndex = "99999";
 
     let caixa = document.createElement("div");
+
     caixa.style.position = "fixed";
     caixa.style.top = "50%";
     caixa.style.left = "50%";
@@ -75,24 +100,28 @@ document.addEventListener("DOMContentLoaded", () => {
         <h2>Créditos</h2>
         <p>Projeto: Whistler</p>
         <p>Interface: Gustavo F</p>
-        <p>Sistema:Gustavo F</p>
-        <p>Modo secreto:Gustavo F</p>
-        <p>Estilo:😎<p>
+        <p>Sistema: Gustavo F</p>
+        <p>Modo secreto: Gustavo F</p>
+        <p>Estilo: 😎</p>
         <br>
         <button id="fecharCreditos">Fechar</button>
     `;
 
     if (forum === "secreto" || forum === "ultra") {
+
         document.body.appendChild(btnCreditos);
         document.body.appendChild(caixa);
     }
 
     btnCreditos.onclick = () => {
+
         caixa.style.display = "block";
     };
 
     document.addEventListener("click", (e) => {
+
         if (e.target.id === "fecharCreditos") {
+
             caixa.style.display = "none";
         }
     });
@@ -100,12 +129,17 @@ document.addEventListener("DOMContentLoaded", () => {
     /* -----------------------------------------------------------
        🔥 MODO SECRETO
     ----------------------------------------------------------- */
+
     if (forum === "secreto") {
+
         enterCutscene();
+
         document.body.style.background = "black";
 
         const tela = document.createElement("div");
+
         tela.innerText = "ACESSO CONCEDIDO";
+
         tela.style.position = "fixed";
         tela.style.top = "50%";
         tela.style.left = "50%";
@@ -113,12 +147,15 @@ document.addEventListener("DOMContentLoaded", () => {
         tela.style.color = "white";
         tela.style.fontSize = "28px";
         tela.style.zIndex = "9998";
+
         document.body.appendChild(tela);
 
         setTimeout(() => {
+
             tela.remove();
 
             const overlay = document.createElement("div");
+
             overlay.style.position = "fixed";
             overlay.style.top = "0";
             overlay.style.left = "0";
@@ -128,18 +165,24 @@ document.addEventListener("DOMContentLoaded", () => {
             overlay.style.zIndex = "9999";
 
             const video = document.createElement("video");
+
             video.src = "rickroll.mp4";
             video.autoplay = true;
+
             video.style.width = "100vw";
             video.style.height = "100vh";
             video.style.objectFit = "contain";
 
             overlay.appendChild(video);
+
             document.body.appendChild(overlay);
 
             video.onended = () => {
+
                 overlay.remove();
+
                 localStorage.setItem("forumSelecionado", "ultra");
+
                 location.reload();
             };
 
@@ -149,72 +192,166 @@ document.addEventListener("DOMContentLoaded", () => {
     /* -----------------------------------------------------------
        🔥 MODO ULTRA
     ----------------------------------------------------------- */
+
     if (forum === "ultra") {
+
         enterUI();
+
         document.body.style.background = "black";
         document.body.style.color = "#00ffcc";
-        if (titulo) titulo.innerText = "Vienna // ROOT";
+
+        if (titulo) {
+            titulo.innerText = "Vienna // ROOT";
+        }
 
         ambience.play().catch(() => {
-            document.addEventListener("click", () => ambience.play(), { once: true });
+
+            document.addEventListener("click", () => {
+
+                ambience.play();
+
+            }, { once: true });
+
         });
     }
 
+    /* -----------------------------------------------------------
+       🔘 BOTÃO ENVIAR
+    ----------------------------------------------------------- */
+
     function atualizarBotao() {
+
         const temTexto = input && input.value.trim() !== "";
+
         if (botao) {
+
             botao.disabled = !temTexto;
+
             botao.classList.toggle("ativo", temTexto);
         }
     }
 
     if (input) {
+
         input.addEventListener("input", atualizarBotao);
     }
 
     /* -----------------------------------------------------------
-       🚀 ENVIO DE MENSAGEM (CORRIGIDO)
+       🚀 ENVIO DE MENSAGEM + IA
     ----------------------------------------------------------- */
-    function enviarMensagem() {
+
+    async function enviarMensagem() {
+
         const msg = input.value.trim();
+
         if (!msg) return;
 
+        // 🔥 código secreto
         if (msg === CODIGO_SECRETO) {
+
             localStorage.setItem("forumSelecionado", "secreto");
+
             location.reload();
+
             return;
         }
 
-        const div = document.createElement("div");
-        div.innerText = "Você: " + msg;
-        chat.appendChild(div);
+        // 👤 usuário
+        const userDiv = document.createElement("div");
 
+        userDiv.innerText = "Você: " + msg;
+
+        chat.appendChild(userDiv);
+
+        // limpa input
         input.value = "";
+
         atualizarBotao();
+
+        // 🤖 IA pensando
+        const iaDiv = document.createElement("div");
+
+        iaDiv.innerText = "IA: ...";
+
+        chat.appendChild(iaDiv);
+
+        chat.scrollTop = chat.scrollHeight;
+
+        try {
+
+            const resposta = await fetch(API_URL, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    msg: msg
+                })
+            });
+
+            if (!resposta.ok) {
+
+                throw new Error("Erro HTTP: " + resposta.status);
+            }
+
+            const data = await resposta.json();
+
+            iaDiv.innerText = "IA: " + data.resposta;
+
+        } catch (erro) {
+
+            console.error(erro);
+
+            iaDiv.innerText = "IA: erro ao conectar.";
+        }
+
+        chat.scrollTop = chat.scrollHeight;
     }
 
+    /* -----------------------------------------------------------
+       🖱 BOTÃO CLICK
+    ----------------------------------------------------------- */
+
     if (botao) {
+
         botao.addEventListener("click", enviarMensagem);
     }
 
+    /* -----------------------------------------------------------
+       ⌨ ENTER / SHIFT+ENTER
+    ----------------------------------------------------------- */
+
     if (input) {
-input.addEventListener("keydown", (e) => {
 
-    // ENTER normal = envia
-    if (e.key === "Enter" && !e.shiftKey && !botao.disabled) {
-        e.preventDefault();
-        enviarMensagem();
+        input.addEventListener("keydown", (e) => {
+
+            // ENTER normal envia
+            if (e.key === "Enter" && !e.shiftKey && !botao.disabled) {
+
+                e.preventDefault();
+
+                enviarMensagem();
+            }
+
+            // SHIFT+ENTER = quebra linha normal
+        });
     }
 
-    // SHIFT + ENTER = quebra linha (não faz nada, deixa padrão)
-});
-    }
+    /* -----------------------------------------------------------
+       🔙 VOLTAR
+    ----------------------------------------------------------- */
 
     if (voltar) {
+
         voltar.addEventListener("click", () => {
+
             window.location.href = "forum.html";
         });
     }
 
     atualizarBotao();
+
 });
