@@ -25,14 +25,26 @@ app.MapPost("/ia", async (HttpContext context, IHttpClientFactory httpFactory) =
 {
     var body = await JsonSerializer.DeserializeAsync<Mensagem>(
         context.Request.Body,
-        new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        }
     );
 
     if (body == null || string.IsNullOrWhiteSpace(body.Msg))
-        return Results.Text("NÃO VERIFICÁVEL: mensagem vazia");
+    {
+        return Results.Json(new
+        {
+            resposta = "NÃO VERIFICÁVEL: mensagem vazia"
+        });
+    }
 
     var resposta = await IAComPesquisa(body.Msg, httpFactory);
-    return Results.Text(resposta);
+
+    return Results.Json(new
+    {
+        resposta = resposta
+    });
 });
 
 app.Run();
@@ -58,6 +70,7 @@ VEREDICTO: VERDADEIRO | FALSO | NÃO VERIFICÁVEL
 EXPLICAÇÃO:
 Responda de forma curta e rápida, máxima de 2 frases curtas.
 Seja direto e objetivo.
+Evite ficar mais 2 minutos gerando resposta
 
 Pergunta: {entrada}
 ";
@@ -77,7 +90,9 @@ Pergunta: {entrada}
     );
 
     if (!response.IsSuccessStatusCode)
+    {
         return "ERRO: Ollama não respondeu";
+    }
 
     var resultJson = await response.Content.ReadAsStringAsync();
 
