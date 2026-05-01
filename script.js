@@ -5,11 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const chat = document.getElementById("chat");
     const voltar = document.getElementById("voltarForum");
 
-    // ⚠️ TESTE LOCAL
+    // 🔥 API
     const API_URL = "http://127.0.0.1:5044/ia";
 
     const CODIGO_SECRETO = "777*777*777";
 
+    // 🔥 fórum atual
     const forum = localStorage.getItem("forumSelecionado") || "geral";
 
     const titulo = document.querySelector(".container1 h2");
@@ -17,12 +18,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputArea = document.querySelector(".input-area");
 
     const foruns = {
-        geral: { nome: "Geral", imagem: "images.jpg" },
-        tecnologia: { nome: "Tecnologia", imagem: "images4.jpg" },
-        teorias: { nome: "Teorias", imagem: "images2.png" },
-        secreto: { nome: "???", imagem: "images3.jpg" },
-        ultra: { nome: "ULTRA", imagem: "images3.jpg" }
+
+        geral: {
+            nome: "Geral",
+            imagem: "images.jpg"
+        },
+
+        tecnologia: {
+            nome: "Tecnologia",
+            imagem: "images4.jpg"
+        },
+
+        teorias: {
+            nome: "Teorias",
+            imagem: "images2.png"
+        },
+
+        secreto: {
+            nome: "???",
+            imagem: "images3.jpg"
+        },
+
+        ultra: {
+            nome: "ULTRA",
+            imagem: "images3.jpg"
+        }
     };
+
+    // =========================================================
+    // 🎨 VISUAL DO FÓRUM
+    // =========================================================
 
     if (foruns[forum]) {
 
@@ -33,8 +58,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // =========================================================
+    // 🔊 SOM
+    // =========================================================
+
     const ambience = new Audio("aquatic ambience.mp3");
+
     ambience.loop = true;
+
+    // =========================================================
+    // 🎬 CUTSCENE
+    // =========================================================
 
     function enterCutscene() {
 
@@ -49,6 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // =========================================================
+    // 💻 UI NORMAL
+    // =========================================================
+
     function enterUI() {
 
         document.body.style.overflow = "auto";
@@ -62,9 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* -----------------------------------------------------------
-       🔘 BOTÃO + CAIXA DE CRÉDITOS
-    ----------------------------------------------------------- */
+    // =========================================================
+    // 🔘 BOTÃO DE CRÉDITOS
+    // =========================================================
 
     let btnCreditos = document.createElement("button");
 
@@ -80,6 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
     btnCreditos.style.color = "#00ffcc";
     btnCreditos.style.cursor = "pointer";
     btnCreditos.style.zIndex = "99999";
+
+    // =========================================================
+    // 📦 CAIXA DE CRÉDITOS
+    // =========================================================
 
     let caixa = document.createElement("div");
 
@@ -98,18 +140,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     caixa.innerHTML = `
         <h2>Créditos</h2>
+
         <p>Projeto: Whistler</p>
         <p>Interface: Gustavo F</p>
         <p>Sistema: Gustavo F</p>
         <p>Modo secreto: Gustavo F</p>
         <p>Estilo: 😎</p>
+
         <br>
+
         <button id="fecharCreditos">Fechar</button>
     `;
+
+    // =========================================================
+    // 🌑 APENAS MODOS SECRETOS
+    // =========================================================
 
     if (forum === "secreto" || forum === "ultra") {
 
         document.body.appendChild(btnCreditos);
+
         document.body.appendChild(caixa);
     }
 
@@ -126,9 +176,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /* -----------------------------------------------------------
-       🔥 MODO SECRETO
-    ----------------------------------------------------------- */
+    // =========================================================
+    // 🔥 MODO SECRETO
+    // =========================================================
 
     if (forum === "secreto") {
 
@@ -167,6 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const video = document.createElement("video");
 
             video.src = "rickroll.mp4";
+
             video.autoplay = true;
 
             video.style.width = "100vw";
@@ -189,9 +240,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     }
 
-    /* -----------------------------------------------------------
-       🔥 MODO ULTRA
-    ----------------------------------------------------------- */
+    // =========================================================
+    // 🔥 MODO ULTRA
+    // =========================================================
 
     if (forum === "ultra") {
 
@@ -211,13 +262,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 ambience.play();
 
             }, { once: true });
-
         });
     }
 
-    /* -----------------------------------------------------------
-       🔘 BOTÃO ENVIAR
-    ----------------------------------------------------------- */
+    // =========================================================
+    // 🔘 BOTÃO ENVIAR
+    // =========================================================
 
     function atualizarBotao() {
 
@@ -236,9 +286,9 @@ document.addEventListener("DOMContentLoaded", () => {
         input.addEventListener("input", atualizarBotao);
     }
 
-    /* -----------------------------------------------------------
-       🚀 ENVIO DE MENSAGEM + IA
-    ----------------------------------------------------------- */
+    // =========================================================
+    // 🚀 ENVIAR MENSAGEM
+    // =========================================================
 
     async function enviarMensagem() {
 
@@ -246,7 +296,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!msg) return;
 
-        // 🔥 código secreto
+        // =====================================================
+        // 🔥 CÓDIGO SECRETO
+        // =====================================================
+
         if (msg === CODIGO_SECRETO) {
 
             localStorage.setItem("forumSelecionado", "secreto");
@@ -256,7 +309,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 👤 usuário
+        // =====================================================
+        // 👤 USUÁRIO
+        // =====================================================
+
         const userDiv = document.createElement("div");
 
         userDiv.innerText = "Você: " + msg;
@@ -268,7 +324,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         atualizarBotao();
 
-        // 🤖 IA pensando
+        // =====================================================
+        // 🤖 IA
+        // =====================================================
+
         const iaDiv = document.createElement("div");
 
         iaDiv.innerText = "IA: ...";
@@ -288,20 +347,49 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
 
                 body: JSON.stringify({
-                    msg: msg
+                    msg: msg,
+                    forum: forum
                 })
             });
 
             if (!resposta.ok) {
 
-                throw new Error("Erro HTTP: " + resposta.status);
+                throw new Error(
+                    "Erro HTTP: " + resposta.status
+                );
             }
 
             const data = await resposta.json();
 
-            iaDiv.innerText = "IA: " + data.resposta;
+            const textoIA = data.resposta;
 
-        } catch (erro) {
+            iaDiv.innerText = "IA: " + textoIA;
+
+            // =====================================================
+            // 🎨 CORES DOS VEREDICTOS
+            // =====================================================
+
+            const textoMaiusculo = textoIA.toUpperCase();
+
+            if (textoMaiusculo.includes("VERDADEIRO")) {
+
+                iaDiv.classList.add("resposta-verdadeiro");
+            }
+
+            else if (textoMaiusculo.includes("FALSO")) {
+
+                iaDiv.classList.add("resposta-falso");
+            }
+
+            else if (
+                textoMaiusculo.includes("NÃO VERIFICÁVEL") ||
+                textoMaiusculo.includes("NAO VERIFICAVEL")
+            ) {
+
+                iaDiv.classList.add("resposta-nao-verificavel");
+            }
+        }
+        catch (erro) {
 
             console.error(erro);
 
@@ -311,38 +399,46 @@ document.addEventListener("DOMContentLoaded", () => {
         chat.scrollTop = chat.scrollHeight;
     }
 
-    /* -----------------------------------------------------------
-       🖱 BOTÃO CLICK
-    ----------------------------------------------------------- */
+    // =========================================================
+    // 🖱 BOTÃO
+    // =========================================================
 
     if (botao) {
 
-        botao.addEventListener("click", enviarMensagem);
+        botao.addEventListener(
+            "click",
+            enviarMensagem
+        );
     }
 
-    /* -----------------------------------------------------------
-       ⌨ ENTER / SHIFT+ENTER
-    ----------------------------------------------------------- */
+    // =========================================================
+    // ⌨ ENTER / SHIFT+ENTER
+    // =========================================================
 
     if (input) {
 
         input.addEventListener("keydown", (e) => {
 
-            // ENTER normal envia
-            if (e.key === "Enter" && !e.shiftKey && !botao.disabled) {
+            // ENTER normal
+            if (
+                e.key === "Enter" &&
+                !e.shiftKey &&
+                !botao.disabled
+            ) {
 
                 e.preventDefault();
 
                 enviarMensagem();
             }
 
-            // SHIFT+ENTER = quebra linha normal
+            // SHIFT+ENTER:
+            // quebra linha normal
         });
     }
 
-    /* -----------------------------------------------------------
-       🔙 VOLTAR
-    ----------------------------------------------------------- */
+    // =========================================================
+    // 🔙 VOLTAR
+    // =========================================================
 
     if (voltar) {
 

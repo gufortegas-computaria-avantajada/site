@@ -164,3 +164,20 @@ body {
 #voltarForum:hover {
     transform: scale(1.08);
 }
+/* VERDADEIRO */
+.resposta-verdadeiro{
+    color:#00cc00;
+    font-weight:bold;
+}
+
+/* FALSO */
+.resposta-falso{
+    color:#ff2b2b;
+    font-weight:bold;
+}
+
+/* NÃO VERIFICÁVEL */
+.resposta-nao-verificavel{
+    color:#ffd000;
+    font-weight:bold;
+}
