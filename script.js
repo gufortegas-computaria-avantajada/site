@@ -277,7 +277,7 @@ if (forum === "ultra") {
     btnGregory.onclick = () => {
 
         window.open(
-    "GREGORY REBOOT.exe",
+    "GREGORY REBOOT beta 1.exe",
     "_blank"
 );
 
