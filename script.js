@@ -246,11 +246,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (forum === "ultra") {
 
-        enterUI();
+    enterUI();
 
-        document.body.style.background = "black";
-        document.body.style.color = "#00ffcc";
+    document.body.style.background = "black";
+    document.body.style.color = "#00ffcc";
 
+    // =====================================================
+    // 🤖 DOWNLOAD GREGORY BETA
+    // =====================================================
+
+    const btnGregory = document.createElement("button");
+
+    btnGregory.innerText = "Gregory Beta 1.0";
+
+    btnGregory.style.position = "fixed";
+    btnGregory.style.bottom = "20px";
+    btnGregory.style.right = "20px";
+    btnGregory.style.padding = "12px 20px";
+    btnGregory.style.borderRadius = "10px";
+    btnGregory.style.border = "1px solid #00ffcc";
+    btnGregory.style.background = "black";
+    btnGregory.style.color = "#00ffcc";
+    btnGregory.style.cursor = "pointer";
+    btnGregory.style.zIndex = "99999";
+
+    btnGregory.onclick = () => {
+
+        window.open(
+            "downloads/Gregory_Beta_1.0.zip",
+            "_blank"
+        );
+
+    };
+
+    document.body.appendChild(btnGregory);
+
+}
         if (titulo) {
             titulo.innerText = "Vienna // ROOT";
         }
