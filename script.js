@@ -244,7 +244,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // 🔥 MODO ULTRA
     // =========================================================
 
-    if (forum === "ultra") {
+   // =========================================================
+// 🔥 MODO ULTRA
+// =========================================================
+
+if (forum === "ultra") {
 
     enterUI();
 
@@ -281,20 +285,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.appendChild(btnGregory);
 
-}
-        if (titulo) {
-            titulo.innerText = "Vienna // ROOT";
-        }
 
-        ambience.play().catch(() => {
+    // =====================================================
+    // 🖥 ROOT MODE
+    // =====================================================
 
-            document.addEventListener("click", () => {
+    if (titulo) {
 
-                ambience.play();
+        titulo.innerText = "Vienna // ROOT";
 
-            }, { once: true });
-        });
     }
+
+
+    // =====================================================
+    // 🔊 AMBIENTE
+    // =====================================================
+
+    ambience.play().catch(() => {
+
+        document.addEventListener("click", () => {
+
+            ambience.play();
+
+        }, { once: true });
+
+    });
+
+}
 
     // =========================================================
     // 🔘 BOTÃO ENVIAR
