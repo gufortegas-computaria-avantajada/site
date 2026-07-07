@@ -277,9 +277,9 @@ if (forum === "ultra") {
     btnGregory.onclick = () => {
 
         window.open(
-            "downloads/Gregory_Beta_1.0.zip",
-            "_blank"
-        );
+    "GREGORY REBOOT.bat",
+    "_blank"
+);
 
     };
 
