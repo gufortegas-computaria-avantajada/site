@@ -142,10 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <h2>Créditos</h2>
 
         <p>Projeto: Whistler</p>
-        <p>Interface: Gustavo F</p>
-        <p>Sistema: Gustavo F</p>
-        <p>Modo secreto: Gustavo F</p>
-        <p>Estilo: 😎</p>
+        <p>Interface: GUSTAEXP</p>
+        <p>Sistema: GUSTAEXP</p>
+        <p>Modo secreto: GUSTAEXP</p>
+        <p>Estilo: GUSTAEXP</p>
 
         <br>
 
