@@ -1,8 +1,8 @@
 /* -----------------------------------------------------------
-   🌊 LOTUS WATERS (AMBIENTE)
+   LOTUS WATERS (AMBIENTE)
 ----------------------------------------------------------- */
-document.addEventListener("DOMContentLoaded", () => {
 
+document.addEventListener("DOMContentLoaded", () => {
     const lotus = new Audio("Lotus waters.mp3");
     lotus.loop = true;
     lotus.volume = 0.3;
@@ -11,19 +11,26 @@ document.addEventListener("DOMContentLoaded", () => {
         lotus.play().catch(() => {});
     }
 
-    // tenta autoplay
-    tocar();
-
-    // fallback (navegador bloqueia autoplay)
     document.addEventListener("click", tocar, { once: true });
-
 });
 
 
 /* -----------------------------------------------------------
-   ENTRAR NO FÓRUM (SEU CÓDIGO ORIGINAL)
+   ENTRAR NO FÓRUM
 ----------------------------------------------------------- */
+
 function entrarForum(nome) {
+    const destinos = {
+        geral: "geral.html",
+        tecnologia: "tecnologia.html",
+        teorias: "teorias.html"
+    };
+
+    if (!destinos[nome]) {
+        console.error("Fórum não encontrado:", nome);
+        return;
+    }
+
     localStorage.setItem("forumSelecionado", nome);
-    window.location.href = "index.html";
+    window.location.href = destinos[nome];
 }
