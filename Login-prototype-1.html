@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#b9f2ff">
+    <title>Whistler | Acesso</title>
+    <link rel="stylesheet" href="login-ptrototype.css">
+</head>
+<body>
+
+    <!-- APRESENTAÇÃO DE FUNDO -->
+    <main class="login-screen">
+
+        <div class="slides-container">
+            <img id="slideA" class="slide active" src="" alt="">
+            <img id="slideB" class="slide" src="" alt="">
+        </div>
+
+        <div class="background-overlay"></div>
+        <div class="light-effect"></div>
+        <div class="bubble-layer"></div>
+
+        <!-- CABEÇALHO -->
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-icon">W</div>
+                <div>
+                    <h1>WHISTLER</h1>
+                    <span>COMMUNITY NETWORK</span>
+                </div>
+            </div>
+
+            <div class="system-status">
+                <span class="status-light"></span>
+                SYSTEM ONLINE
+            </div>
+        </header>
+
+        <!-- CONTEÚDO CENTRAL -->
+        <section class="main-content">
+
+            <div class="welcome-text">
+                <span class="eyebrow">A NEW WORLD AWAITS</span>
+                <h2>Um mundo de ideias.</h2>
+                <p>Entre. Explore. Conecte-se.</p>
+            </div>
+
+            <!-- PAINEL DE LOGIN -->
+            <div class="glass-panel">
+
+                <div class="panel-shine"></div>
+
+                <div class="panel-header">
+                    <div class="panel-logo">
+                        <span>W</span>
+                    </div>
+
+                    <h2 id="formTitle">Bem-vindo de volta</h2>
+                    <p id="formSubtitle">Identifique-se para continuar</p>
+                </div>
+
+                <!-- LOGIN -->
+                <form id="loginForm" class="auth-form">
+
+                    <label for="loginUser">NOME DE USUÁRIO OU E-MAIL</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input
+                            type="text"
+                            id="loginUser"
+                            placeholder="Digite seu usuário..."
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+
+                    <label for="loginPassword">SENHA</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Digite sua senha..."
+                            autocomplete="current-password"
+                            required
+                        >
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="loginPassword"
+                            aria-label="Mostrar senha"
+                        >◉</button>
+                    </div>
+
+                    <button type="submit" class="submit-button">
+                        <span>ENTRAR NO WHISTLER</span>
+                        <span class="button-arrow">➜</span>
+                    </button>
+
+                    <div class="form-switch">
+                        Novo por aqui?
+                        <button type="button" id="showRegister">
+                            CRIAR CONTA
+                        </button>
+                    </div>
+                </form>
+
+                <!-- CADASTRO -->
+                <form id="registerForm" class="auth-form hidden">
+
+                    <label for="registerUser">NOME DE USUÁRIO</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input
+                            type="text"
+                            id="registerUser"
+                            placeholder="Escolha um usuário..."
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+
+                    <label for="registerEmail">E-MAIL</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">✉</span>
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            placeholder="seuemail@exemplo.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <label for="registerPassword">SENHA</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            placeholder="Crie uma senha..."
+                            autocomplete="new-password"
+                            required
+                        >
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="registerPassword"
+                            aria-label="Mostrar senha"
+                        >◉</button>
+                    </div>
+
+                    <button type="submit" class="submit-button">
+                        <span>CRIAR MINHA CONTA</span>
+                        <span class="button-arrow">➜</span>
+                    </button>
+
+                    <div class="form-switch">
+                        Já possui uma conta?
+                        <button type="button" id="showLogin">
+                            FAZER LOGIN
+                        </button>
+                    </div>
+                </form>
+
+                <div id="prototypeMessage" class="prototype-message" role="status"></div>
+
+                <div class="panel-footer">
+                    <span>SECURE ACCESS</span>
+                    <span>WHISTLER NETWORK</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTROLES DOS SLIDES -->
+        <footer class="bottom-bar">
+
+            <div class="slide-info">
+                <span id="slideCategory">OCEANO</span>
+                <span class="slide-divider">/</span>
+                <span id="slideCounter">01 / 27</span>
+            </div>
+
+            <div class="slide-controls">
+                <button type="button" id="previousSlide" aria-label="Slide anterior">❮</button>
+                <button type="button" id="pauseSlides" aria-label="Pausar slides">Ⅱ</button>
+                <button type="button" id="nextSlide" aria-label="Próximo slide">❯</button>
+            </div>
+
+            <div class="version">
+                WHISTLER · VERSION 2.0
+            </div>
+
+        </footer>
+
+    </main>
+
+    <script src="login.js"></script>
+</body>
+</html>
